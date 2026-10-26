@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#09090f">
+  <meta name="description" content="SONORA — Discover music, find your vibe.">
+  <title>SONORA — Your Music Universe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" data-view="home">
+        <span class="brand-icon">♫</span>
+        <span>SONORA<span class="brand-dot">.</span></span>
+      </a>
+
+      <p class="nav-label">MENU</p>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <button class="nav-item active" data-view="home">
+          <span>⌂</span> Accueil
+        </button>
+        <button class="nav-item" data-view="explore">
+          <span>⌕</span> Explorer
+        </button>
+        <button class="nav-item" data-view="favorites">
+          <span>♡</span> Favoris
+        </button>
+        <button class="nav-item" data-view="playlists">
+          <span>▤</span> Mes playlists
+        </button>
+      </nav>
+
+      <div class="sidebar-playlists">
+        <div class="sidebar-section-heading">
+          <p class="nav-label">TA COLLECTION</p>
+          <button id="create-playlist-sidebar" class="icon-button" aria-label="Créer une playlist">+</button>
+        </div>
+        <div id="sidebar-playlist-list"></div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="profile-avatar">S</div>
+        <div>
+          <strong>Music lover</strong>
+          <span class="profile-subtitle">Ton univers musical</span>
+        </div>
+        <span class="online-dot"></span>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="history-buttons">
+          <button class="icon-button" id="back-button" aria-label="Retour">‹</button>
+          <button class="icon-button" id="forward-button" aria-label="Avancer">›</button>
+        </div>
+
+        <form id="search-form" class="search-box">
+          <span>⌕</span>
+          <input id="search-input" type="search" placeholder="Rechercher un titre, un artiste..." autocomplete="off">
+          <kbd>Entrée ↵</kbd>
+        </form>
+
+        <button class="avatar-button" id="profile-button" aria-label="À propos">S</button>
+      </header>
+
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+      <section id="view-home" class="view active">
+        <div class="hero">
+          <div class="hero-background-orb orb-one"></div>
+          <div class="hero-background-orb orb-two"></div>
+
+          <div class="hero-content">
+            <div class="eyebrow"><span class="pulse-dot"></span> TON UNIVERS, TON RYTHME</div>
+            <h1>Feel every<br> <span>frequency.</span></h1>
+            <p>Découvre de nouveaux sons.<br>Retrouve les émotions qui te ressemblent.</p>
+            <button class="primary-button" data-view="explore">
+              Explorer les sons <span>↗</span>
+            </button>
+          </div>
+
+          <div class="hero-art">
+            <div class="hero-ring ring-one"></div>
+            <div class="hero-ring ring-two"></div>
+            <div class="hero-disc">
+              <div class="disc-label">S<br><span>♫</span></div>
+            </div>
+            <div class="floating-note note-one">♫</div>
+            <div class="floating-note note-two">♪</div>
+            <div class="equalizer" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+          </div>
+        </div>
+
+        <section class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">SÉLECTION POUR TOI</p>
+              <h2>À découvrir <span class="heading-accent">✳</span></h2>
+            </div>
+            <button class="text-button" data-view="explore">Tout explorer ↗</button>
+          </div>
+          <div id="featured-tracks" class="track-grid"></div>
+        </section>
+
+        <section class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">TON PROCHAIN COUP DE CŒUR</p>
+              <h2>En ce moment</h2>
+            </div>
+            <span class="live-badge"><span></span> MUSIQUE EN LIGNE</span>
+          </div>
+          <div id="trending-tracks" class="track-list"></div>
+        </section>
+      </section>
+
+      <section id="view-explore" class="view">
+        <div class="page-header">
+          <p class="section-kicker">LE MONDE EST À TOI</p>
+          <h1>Explorer<span class="heading-accent">.</span></h1>
+          <p>Un nouveau morceau peut changer toute ta journée.</p>
+        </div>
+
+        <div class="genre-list" id="genre-list">
+          <button class="genre-chip active" data-genre="">Tout</button>
+          <button class="genre-chip" data-genre="pop">Pop</button>
+          <button class="genre-chip" data-genre="rock">Rock</button>
+          <button class="genre-chip" data-genre="electronic">Électronique</button>
+          <button class="genre-chip" data-genre="jazz">Jazz</button>
+          <button class="genre-chip" data-genre="hiphop">Hip-hop</button>
+          <button class="genre-chip" data-genre="classical">Classique</button>
+        </div>
+
+        <div id="explore-results" class="track-grid"></div>
+        <button id="load-more" class="secondary-button load-more-button">Charger plus de morceaux</button>
+      </section>
+
+      <section id="view-favorites" class="view">
+        <div class="page-header">
+          <p class="section-kicker">TES MORCEAUX PRÉFÉRÉS</p>
+          <h1>Coups de cœur<span class="heading-accent">.</span></h1>
+          <p>Les morceaux que tu veux garder près de toi.</p>
+        </div>
+        <div id="favorites-results" class="track-grid"></div>
+      </section>
+
+      <section id="view-playlists" class="view">
+        <div class="page-header page-header-flex">
+          <div>
+            <p class="section-kicker">TA MUSIQUE, TES RÈGLES</p>
+            <h1>Mes playlists<span class="heading-accent">.</span></h1>
+            <p>Crée la bande-son de chaque moment.</p>
+          </div>
+          <button id="create-playlist-main" class="primary-button">＋ Créer une playlist</button>
+        </div>
+        <div id="playlists-results" class="playlist-grid"></div>
+      </section>
+
+      <section id="view-playlist-detail" class="view">
+        <button class="text-button back-to-playlists" data-view="playlists">← Mes playlists</button>
+        <div id="playlist-detail-content"></div>
+      </section>
+
+      <section id="view-search" class="view">
+        <div class="page-header">
+          <p class="section-kicker">TA RECHERCHE</p>
+          <h1 id="search-page-title">Résultats<span class="heading-accent">.</span></h1>
+          <p id="search-page-subtitle">Voici ce que nous avons trouvé.</p>
+        </div>
+        <div id="search-results" class="track-grid"></div>
+      </section>
+
+      <footer class="app-footer">
+        <span class="footer-brand">SONORA<span class="brand-dot">.</span></span>
+        <span>Made for your moments ♡</span>
+      </footer>
+    </main>
+  </div>
+
+  <footer class="player">
+    <div class="player-track">
+      <img id="player-cover" src="" alt="Pochette du morceau">
+      <div class="player-track-info">
+        <strong id="player-title">Choisis ton premier morceau</strong>
+        <span id="player-artist">Ton prochain coup de cœur t'attend</span>
+      </div>
+      <button id="player-favorite" class="player-heart" aria-label="Ajouter aux favoris" title="Favoris">♡</button>
+    </div>
+
+    <div class="player-center">
+      <div class="player-controls">
+        <button id="shuffle-button" class="control-button" aria-label="Lecture aléatoire" title="Aléatoire">⤨</button>
+        <button id="previous-button" class="control-button" aria-label="Morceau précédent">◂</button>
+        <button id="play-button" class="play-button" aria-label="Lire">▶</button>
+        <button id="next-button" class="control-button" aria-label="Morceau suivant">▸</button>
+        <button id="repeat-button" class="control-button" aria-label="Répéter" title="Répéter">↻</button>
+      </div>
+      <div class="progress-row">
+        <span id="current-time">0:00</span>
+        <input id="progress-bar" type="range" min="0" max="100" value="0" step="0.1" aria-label="Position de lecture">
+        <span id="duration">0:00</span>
+      </div>
+    </div>
+
+    <div class="player-extra">
+      <button id="autoplay-button" class="control-button autoplay-control active" aria-label="Activer la lecture automatique" title="Lecture automatique">AUTO</button>
+      <span class="volume-icon">◖))</span>
+      <input id="volume-bar" type="range" min="0" max="1" value="0.75" step="0.01" aria-label="Volume">
+    </div>
+  </footer>
+
+  <dialog id="playlist-dialog" class="playlist-dialog">
+    <form id="playlist-form">
+      <button type="button" id="close-dialog" class="dialog-close" aria-label="Fermer">×</button>
+      <p class="section-kicker">TA COLLECTION</p>
+      <h2>Une nouvelle ambiance.</h2>
+      <p class="dialog-description">Donne un nom à ta prochaine playlist.</p>
+      <label for="playlist-name">Nom de la playlist</label>
+      <input id="playlist-name" type="text" maxlength="50" placeholder="Ex. Late night vibes" required>
+      <div class="dialog-actions">
+        <button type="button" id="cancel-dialog" class="secondary-button">Annuler</button>
+        <button type="submit" class="primary-button">Créer ↗</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="add-track-dialog" class="playlist-dialog">
+    <form id="add-track-form">
+      <button type="button" id="close-add-track-dialog" class="dialog-close" aria-label="Fermer">×</button>
+      <p class="section-kicker">TA COLLECTION</p>
+      <h2>Garde ce morceau.</h2>
+      <p class="dialog-description">Choisis la playlist à laquelle l’ajouter.</p>
+      <div id="add-track-playlist-options">
+        <label for="add-track-playlist">Ma playlist</label>
+        <select id="add-track-playlist" required></select>
+      </div>
+      <div id="add-track-no-playlists" class="playlist-empty-prompt" hidden>
+        <p>Tu n’as pas encore de playlist.</p>
+        <button type="button" id="create-playlist-from-picker" class="secondary-button">Créer une playlist</button>
+      </div>
+      <div class="dialog-actions" id="add-track-dialog-actions">
+        <button type="button" id="cancel-add-track-dialog" class="secondary-button">Annuler</button>
+        <button type="submit" class="primary-button">＋ Ajouter</button>
+      </div>
+    </form>
+  </dialog>
+
+  <audio id="audio-player" preload="metadata"></audio>
+  <script src="script.js"></script>
+</body>
+</html>
